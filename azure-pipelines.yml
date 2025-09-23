@@ -28,6 +28,7 @@ stages:
     displayName: Maven Package and Publish Artifacts
     pool:
       name: $(Name)
+      vmImage: 'ubuntu-latest'
 
     steps:
     - task: Maven@4
