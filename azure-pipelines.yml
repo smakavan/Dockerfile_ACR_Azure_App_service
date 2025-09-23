@@ -9,7 +9,7 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'a0c353b6-cb40-4e36-a692-5ce1da78943d'
+  azureSubscription: 'KeyVault-Sac'
 
   # Web app name
   webAppName: 'Java-Amazon-sac'
