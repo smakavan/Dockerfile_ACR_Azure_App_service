@@ -18,7 +18,7 @@ variables:
   environmentName: 'Java-Amazon-sac'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  Name: 'Local-Linux'
 
 stages:
 - stage: Build
@@ -27,7 +27,7 @@ stages:
   - job: MavenPackageAndPublishArtifacts
     displayName: Maven Package and Publish Artifacts
     pool:
-      vmImage: $(vmImageName)
+      name: $(Name)
 
     steps:
     - task: Maven@4
