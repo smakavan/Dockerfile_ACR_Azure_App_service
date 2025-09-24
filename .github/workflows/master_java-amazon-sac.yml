@@ -26,6 +26,8 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install
+        working-directory: Amazon
+
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -61,3 +63,4 @@ jobs:
           slot-name: 'Production'
           package: '*.war'
           
+
