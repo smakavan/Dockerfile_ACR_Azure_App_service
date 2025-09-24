@@ -68,4 +68,4 @@ stages:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
               appName: $(webAppName)
-              package: '$(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
+              package: '$(Pipeline.Workspace)/drop/**/Amazon-Web/target/*.?(war|jar)'
