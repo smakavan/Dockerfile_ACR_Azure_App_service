@@ -17,8 +17,9 @@ variables:
   # Environment name
   environmentName: 'Java-Amazon-sac'
 
-  # Agent VM image name
-  Name: 'Local-Linux'
+pool:
+  name: 'Local-Linux'
+#  vmImage: 'ubuntu-latest'
 
 stages:
 - stage: Build
@@ -26,9 +27,6 @@ stages:
   jobs:
   - job: MavenPackageAndPublishArtifacts
     displayName: Maven Package and Publish Artifacts
-    pool:
-      name: $(Name)
-      vmImage: 'ubuntu-latest'
 
     steps:
     - task: Maven@4
@@ -60,8 +58,6 @@ stages:
   - deployment: DeployLinuxWebApp
     displayName: Deploy Linux Web App
     environment: $(environmentName)
-    pool:
-      vmImage: $(vmImageName)
     strategy:
       runOnce:
         deploy:
