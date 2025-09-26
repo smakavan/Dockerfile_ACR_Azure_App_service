@@ -24,17 +24,22 @@ steps:
   displayName: "Build Docker Image"
   inputs:
     command: build
-    Dockerfile: '**/Dockerfile'
+    containerRegistry: 'ACR-Connection'   # must match your service connection name
+    repository: $(imageName)              # gives image a repo name
+    dockerfile: '**/Dockerfile'       # Dockerfile path
+    buildContext: 'Amazon'
     tags: |
-      $(registry)/$(imageName):$(tag)
+      $(tag)
 
 # Step 4: Push Docker image to ACR
 - task: Docker@2
   displayName: "Push Docker Image"
   inputs:
     command: push
+    containerRegistry: 'ACR-Connection'
+    repository: $(imageName)              # same repo name as above
     tags: |
-      $(registry)/$(imageName):$(tag)
+      $(tag)
 
 # Step 5: Deploy to Azure App Service (Linux Container)
 - task: AzureWebAppContainer@1
