@@ -27,7 +27,7 @@ steps:
     containerRegistry: 'ACR-Connection'   # must match your service connection name
     repository: $(imageName)              # gives image a repo name
     dockerfile: '**/Dockerfile'       # Dockerfile path
-    buildContext: 'Amazon'
+    buildContext: '.'
     tags: |
       $(tag)
 
