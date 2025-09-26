@@ -1,0 +1,46 @@
+trigger: none
+
+pool:
+  name: 'Local-Linux'
+
+variables:
+  imageName: amazon-app
+  registry: sacdockerzure.azurecr.io
+  tag: $(Build.BuildId)
+
+steps:
+# Step 1: Checkout GitHub repo
+- checkout: self
+
+# Step 2: Login to ACR
+- task: Docker@2
+  displayName: "Login to ACR"
+  inputs:
+    command: login
+    containerRegistry: ACR-Connection
+
+# Step 3: Build Docker image
+- task: Docker@2
+  displayName: "Build Docker Image"
+  inputs:
+    command: build
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      $(registry)/$(imageName):$(tag)
+
+# Step 4: Push Docker image to ACR
+- task: Docker@2
+  displayName: "Push Docker Image"
+  inputs:
+    command: push
+    tags: |
+      $(registry)/$(imageName):$(tag)
+
+# Step 5: Deploy to Azure App Service (Linux Container)
+- task: AzureWebAppContainer@1
+  displayName: "Deploy to Azure App Service"
+  inputs:
+    azureSubscription: 'KeyVault-Sac'  # Service connection to Azure
+    appName: 'myapp-service'           # Your App Service name
+    containers: |
+      $(registry)/$(imageName):$(tag)
